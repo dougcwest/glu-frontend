@@ -1,11 +1,19 @@
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { fetchPosts } from "../actions";
+import { useEffect } from "react";
 
 const PostsIndex = (props) => {
+  useEffect(() => {
+    props.fetchPosts();
+  }, []);
+
   const renderPosts = () => {
-    if (props.posts) {
-      return props.posts.map(post => {
+    if (props.posts.length > 0) {
+      return props.posts.map((post, i) => {
         return (
-          <li className="list-group-item" key={post.id}>
+          <li className="list-group-item" key={i}>
             <Link to={`/posts/${post.id}`}>
               {post.title}
             </Link>
@@ -13,7 +21,7 @@ const PostsIndex = (props) => {
         );
       })
     } else {
-      return <div>Loading...</div>
+      return <div>No posts to show</div>
     }
   }
 
@@ -24,6 +32,7 @@ const PostsIndex = (props) => {
           Add a Post
         </Link>
       </div>
+      <br></br>
       <h3>Posts</h3>
       <ul className="list-group">
         {renderPosts()}
@@ -32,4 +41,12 @@ const PostsIndex = (props) => {
   )
 }
 
-export default PostsIndex;
+function mapStateToProps(state) {
+  return { posts: state.posts };
+}
+
+function mapDispatchToProps(dispatch) {
+  return { fetchPosts: bindActionCreators(fetchPosts, dispatch) }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostsIndex);
