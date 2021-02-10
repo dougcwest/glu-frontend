@@ -4,15 +4,18 @@ export default function(state = [], action) {
   switch (action.type) {
     case FETCH_POSTS:
       return [
-          { "title": "Starting 2021 Right", 
+          { "id": 1,
+            "title": "Starting 2021 Right", 
             "categories": ["health"], 
             "content": "I'm stating 2021 off the right way!"
           },
-          { "title": "Learn to Code", 
+          { "id": 2,
+            "title": "Learn to Code", 
             "categories": ["career"], 
             "content": "I'm learning to code!"
           },
-          { "title": "Get Rich Quick!", 
+          { "id": 3,
+            "title": "Get Rich Quick!", 
             "categories": ["finances"], 
             "content": "Save your money!"
           }

@@ -11,9 +11,9 @@ const PostsIndex = (props) => {
 
   const renderPosts = () => {
     if (props.posts.length > 0) {
-      return props.posts.map((post, i) => {
+      return props.posts.map((post) => {
         return (
-          <li className="list-group-item" key={i}>
+          <li className="list-group-item" key={post.id}>
             <Link to={`/posts/${post.id}`}>
               {post.title}
             </Link>
