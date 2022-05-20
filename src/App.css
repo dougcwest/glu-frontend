@@ -1,4 +1,7 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins");
+
 .App {
+  font-family: "Poppins", sans-serif;
   text-align: center;
 }
 
@@ -35,4 +38,229 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.recharts-wrapper svg {
+  overflow: inherit !important;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 1200px;
+  max-width: 1200px;
+  width: 100%;
+  background: #333;
+}
+
+.white-container {
+  width: 90%;
+  margin-top: 60px;
+  margin-bottom: 60px;
+  padding: 40px;
+  border-radius: 12px 12px 12px 12px;
+  background: white;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  margin-left: -200px;
+  justify-content: end;
+  width: 100%;
+  padding-top: 18px;
+  border-radius: 0px 0px 12px 12px;
+}
+
+.reverse-container {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  position: relative;
+  justify-content: start;
+  padding-top: 18px;
+  margin-left: 200px;
+  width: 100%;
+  border-radius: 0px 0px 12px 12px;
+}
+
+.container h1 {
+  color: #4d4e4f;
+  font-size: 42px;
+  margin-top: -40px;
+  margin-right: -150px;
+}
+
+.reverse-container h1 {
+  color: #4d4e4f;
+  font-size: 42px;
+  text-align: center;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  font-size: 50px;
+  color: #1981db;
+  padding-bottom: 40px;
+}
+
+.circle {
+  background: white;
+  border-radius: 50%;
+  height: 315px;
+  width: 315px;
+  position: absolute;
+  margin-top: 4px;
+  margin-left: 65px;
+  z-index: -auto;
+  border: none;
+}
+
+.reverse-circle {
+  background: white;
+  border-radius: 50%;
+  height: 315px;
+  width: 315px;
+  position: absolute;
+  margin-top: 4px;
+  margin-right: 65px;
+  z-index: -auto;
+  border: none;
+}
+
+.fave-container {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  justify-content: space-evenly;
+  position: absolute;
+  padding-right: 40px;
+  margin-left: 300px;
+  background: #ebecf0;
+  border-radius: 0px 50px 50px 0px;
+  width: 520px;
+  height: 275px;
+
+  animation: fadeInAnimation ease 3s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.reverse-fave-container {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-evenly;
+  position: absolute;
+  padding-left: 40px;
+  margin-right: 300px;
+  background: #ebecf0;
+  border-radius: 50px 0px 0px 50px;
+  width: 500px;
+  height: 275px;
+
+  animation: fadeInAnimation ease 3s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.reverse-fave-container h1 {
+  margin-left: 10px;
+  margin-top: 5px;
+}
+
+.fave-container h1 {
+  margin-right: -14px;
+}
+
+button {
+  background: none;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+button h2:hover {
+  color: #b0f5aa;
+  font-size: 30px;
+  transition-timing-function: ease;
+}
+
+.favorite {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(20, 20, 20, 0.7);
+  height: 135px;
+  width: 135px;
+  padding: 6px;
+  border-radius: 50%;
+  margin-right: 55px;
+}
+
+.reverse-favorite {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(20, 20, 20, 0.7);
+  height: 130px;
+  width: 130px;
+  padding: 4px;
+  margin-left: 75px;
+  border-radius: 50%;
+}
+
+.favorite h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  margin-bottom: -5px;
+  color: #9ff697;
+  display: flex;
+  flex-direction: column;
+}
+
+.favorite h4 {
+  color: white;
+  text-align: center;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.reverse-favorite h2 {
+  font-size: 28px;
+  margin-bottom: -5px;
+  color: #9ff697;
+  display: flex;
+  flex-direction: column;
+}
+
+.reverse-favorite h4 {
+  color: white;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 16px;
 }

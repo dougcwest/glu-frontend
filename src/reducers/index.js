@@ -1,8 +1,12 @@
 import { combineReducers } from "redux";
-import PostsReducer from "./reducer-posts";
+import ChartsReducer from "./reducer-charts";
+import AvgChartsReducer from "./chart-average-reducer";
+import MembersReducer from "./reducer-members";
 
 const rootReducer = combineReducers({
-  posts: PostsReducer,
+  charts: ChartsReducer,
+  avgCharts: AvgChartsReducer,
+  members: MembersReducer,
 });
 
 export default rootReducer;
