@@ -1,4 +1,5 @@
 import axios from "axios";
+import { AUTH_USER, AUTH_ERROR } from "./types";
 
 export const FETCH_CHARTS = "FETCH_CHARTS";
 export const UPDATE_CATEGORY = "UPDATE_CATEGORY";
@@ -10,6 +11,34 @@ export const SORT_MEMBERS = "SORT_MEMBERS"
 export const FETCH_BY_QUERY = "FETCH_BY_QUERY";
 
 const ROOT_URL = 'http://localhost:8000';
+
+export const signup = (formProps, callback) => dispatch => {
+  axios.post(
+    `${ROOT_URL}/auth/signup`,
+    formProps
+  ).then(function (response) {
+    dispatch({ type: AUTH_USER, payload: response.data });
+    localStorage.setItem('token', response.data.token);
+    callback();
+  })
+  .catch(function (error) {
+    dispatch({ type: AUTH_ERROR, payload: error });
+  });
+};
+
+export const signin = (formProps, callback) => dispatch => {
+  axios.post(
+    `${ROOT_URL}/auth/signin`,
+    formProps
+  ).then(function (response) {
+    dispatch({ type: AUTH_USER, payload: response.data });
+    localStorage.setItem('token', response.data.token);
+    callback();
+  })
+  .catch(function (error) {
+    dispatch({ type: AUTH_ERROR, payload: error });
+  });
+};
 
 export function fetchMembers() {
   const request = axios.get(`${ROOT_URL}/members`).catch((error) => {

@@ -6,19 +6,21 @@ import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import styled from 'styled-components';
+import ReduxThunk from "redux-thunk";
+import rootReducer from './reducers/index';
 import promise from "redux-promise";
 
 import CategoryShow from "./components/category-show";
 import PostsNew from "./components/posts-new";
 import Header from "./components/header"
-import reducers from "./reducers";
 import Sidebar from './components/Sidebar';
 import AllCharts from './components/all-charts';
 import CommonalityCharts from './components/commonality-charts';
 import MembersIndex from './components/members-index';
 import MembersShow from './components/members-show';
 import Inspiration from './components/inspiration';
-import Authentication from './components/authentication';
+import Login from './components/login';
+import Register from './components/register';
 
 const Container = styled.div`
   width: 100%;
@@ -33,17 +35,20 @@ const Main = styled.div`
   grid-template-columns: 260px auto;
 `;
 
-const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
+//const createStoreWithMiddleware = applyMiddleware(ReduxThunk, promise)(createStore);
+
+const store = createStore(rootReducer, {}, applyMiddleware(ReduxThunk, promise));
 
 ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers)}>
+  <Provider store={store}>
     <BrowserRouter>
-    <Route path='/login' component={Authentication} />
       <Container>
         <Header />
           <Main>
           <Sidebar />  
             <Switch>
+              <Route path='/register' component={Register} />
+              <Route path='/login' component={Login} />
               <Route path='/members/:id' component={MembersShow} />
               <Route path='/members' component={MembersIndex} />
               <Route path='/commonality' component={CommonalityCharts} />

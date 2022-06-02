@@ -1,7 +1,29 @@
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
-const header = () => {
+const Header = () => {
+
+  const [confirm, setConfirm] = useState(false);
+
+  const onClick = () => {
+    if (!confirm) {
+      setConfirm(true)
+    } else {
+      setConfirm(false)
+    }
+  };
+
+  const ConfirmPopUp = () => (
+    <ConfirmColumn>
+      <Delete onClick={onClick}>
+        <Link style={linkStyle} to="/login">
+            Logout
+          </Link>
+      </Delete>
+    </ConfirmColumn>
+  )
+
   return (
     <Container>
       <Main>
@@ -17,17 +39,34 @@ const header = () => {
         <Name>
           dougcwest
         </Name>
-        <UserImage>
-          <Link to="/login">
+        <UserImage onClick={onClick}>
           <img src={"https://i.ibb.co/5BgzRZK/doug-thumb-pic.jpg"} alt="avatar" />
-          </Link>
         </UserImage>
+        { confirm ? <ConfirmPopUp /> : null }
       </UserContainer>
     </Container>
   )
 };
 
-export default header; 
+export default Header; 
+
+const linkStyle = {
+  margin: "1rem",
+  textDecoration: "none",
+  color: 'white',
+  fontWeight: '600',
+};
+
+const Delete = styled.button`
+    background: #ff6961;
+    border: none;
+    border-radius: 6px;
+    height: 38px;
+    width: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  `;
 
 const Container = styled.div`
   background: #333333;
@@ -75,19 +114,49 @@ const UserContainer = styled.div`
 `;
 
 const Name = styled.div`
-  padding-right: 16px;
+  padding-right: 12px;
   font-size: 18px;
   font-weight: 700;
 `;
 
-const UserImage = styled.div`
-  width: 28px;
-  height: 28px;
+const UserImage = styled.button`
+  width: 38px;
+  height: 38px;
   border: 2px solid #white;
   border-radius: 4px;
 
   img {
     width: 100%;
     cursor: pointer;
+  }
+`;
+
+const ConfirmColumn = styled.div`
+  padding: 20px;
+  background: #333;
+  width: 160px;
+  border-radius: 0 0 12px 12px;
+  height: 65px;
+  display: flex;
+  color: white;
+  z-index: 100;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+  align-items: center;
+  margin-left: -2px;
+  margin-top: 142px;
+  position: absolute;
+  margin-bottom: 20px;
+
+  span {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-left: -1.5rem;
+  }
   }
 `;
