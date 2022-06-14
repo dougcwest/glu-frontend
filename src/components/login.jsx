@@ -13,7 +13,7 @@ const userSchema = Yup.object().shape({
   password: Yup.string().required(),
 });
 
-const Signup = () => {
+const Signin = () => {
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(userSchema),
   });
@@ -24,7 +24,7 @@ const Signup = () => {
   const handleFormSubmit = (data) => {
     dispatch(
       signin(data, () => {
-        history.push("/");
+        history.push("/members");
       })
     );
   };
@@ -37,24 +37,26 @@ const Signup = () => {
         <SubHeader>Teams that stick together.</SubHeader> 
         <h3>Login</h3>
         <br />
-        <input 
-          type="email" 
-          name="email" 
-          placeholder='Email'      
-          ref={register({ required: true })}
-        />
-        {errors.email?.message}
-        
-        <input 
-          type="password" 
-          name="password" 
-          placeholder='Password'      
-          ref={register({ required: true })}
-        />
-        {errors.password?.message}
-        <SignInButton type="submit" onClick={handleSubmit(handleFormSubmit)}>
-            Submit
-        </SignInButton>
+        <LForm onSubmit={handleSubmit(handleFormSubmit)}>
+          <input 
+            type="email" 
+            name="email" 
+            placeholder='Email'      
+            ref={register({ required: true })}
+          />
+          {errors.email?.message}
+          
+          <input 
+            type="password" 
+            name="password" 
+            placeholder='Password'      
+            ref={register({ required: true })}
+          />
+          {errors.password?.message}
+          <SignInButton type="submit" onClick={handleSubmit(handleFormSubmit)}>
+              Submit
+          </SignInButton>
+          </LForm>
         <span>
           Don't have an account? <Link to="/register">Sign Up</Link>
         </span>
@@ -63,7 +65,7 @@ const Signup = () => {
   )
 }
 
-export default Signup;
+export default Signin;
 
 const Container = styled.div`
   width: 100%;
@@ -72,6 +74,12 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const LForm = styled.form`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 `;
 
 const FormHeader = styled.h1`

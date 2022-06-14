@@ -9,8 +9,11 @@ export const CREATE_MEMBER = "CREATE_MEMBER";
 export const DELETE_MEMBER = "DELETE_MEMBER"
 export const SORT_MEMBERS = "SORT_MEMBERS"
 export const FETCH_BY_QUERY = "FETCH_BY_QUERY";
+export const FETCH_USER = "FETCH_USER";
 
-const ROOT_URL = 'http://localhost:8000';
+// const ROOT_URL = 'http://localhost:8000';
+
+const ROOT_URL = process.env.REACT_APP_ROOT_SERVER_URL;
 
 export const signup = (formProps, callback) => dispatch => {
   axios.post(
@@ -18,7 +21,8 @@ export const signup = (formProps, callback) => dispatch => {
     formProps
   ).then(function (response) {
     dispatch({ type: AUTH_USER, payload: response.data });
-    localStorage.setItem('token', response.data.token);
+    // console.log(response.data.token);
+    localStorage.setItem("token", JSON.stringify(response.data.token));
     callback();
   })
   .catch(function (error) {
@@ -32,12 +36,32 @@ export const signin = (formProps, callback) => dispatch => {
     formProps
   ).then(function (response) {
     dispatch({ type: AUTH_USER, payload: response.data });
-    localStorage.setItem('token', response.data.token);
+    localStorage.setItem("token", JSON.stringify(response.data.token));
     callback();
   })
   .catch(function (error) {
     dispatch({ type: AUTH_ERROR, payload: error });
   });
+};
+
+export const fetchUser = () => (dispatch) => {
+  const config = {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem('token').replace(/['"]+/g, '')
+    },
+  };
+
+  console.log(config.headers.Authorization);
+
+  axios
+    .get(`${ROOT_URL}/auth/current_user`, config)
+    .then(function (response) {
+      dispatch({ type: AUTH_USER, payload: response.data });
+      localStorage.setItem("token", JSON.stringify(response.data.token));
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 };
 
 export function fetchMembers() {

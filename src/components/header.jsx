@@ -1,10 +1,21 @@
 import styled from 'styled-components';
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { fetchUser } from '../actions';
+import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
 const Header = () => {
-
+  const dispatch = useDispatch();
   const [confirm, setConfirm] = useState(false);
+
+  const authenticated = useSelector((state) => state.auth.authenticated);
+  const email = useSelector((state) => state.auth.email);
+
+  useEffect(() => {
+    if (authenticated) {
+      dispatch(fetchUser());
+    }
+  }, [authenticated, dispatch]);
 
   const onClick = () => {
     if (!confirm) {
@@ -14,12 +25,17 @@ const Header = () => {
     }
   };
 
+  const signOut = () => {
+
+    localStorage.removeItem('token');
+
+    window.location.reload(false);
+  };
+
   const ConfirmPopUp = () => (
     <ConfirmColumn>
-      <Delete onClick={onClick}>
-        <Link style={linkStyle} to="/login">
+      <Delete onClick={signOut}>
             Logout
-          </Link>
       </Delete>
     </ConfirmColumn>
   )
@@ -37,10 +53,10 @@ const Header = () => {
       </Main>
       <UserContainer>
         <Name>
-          dougcwest
+          {email}
         </Name>
         <UserImage onClick={onClick}>
-          <img src={"https://i.ibb.co/5BgzRZK/doug-thumb-pic.jpg"} alt="avatar" />
+          <img src={"https://i.ibb.co/gMSQPXp/green-avatar.jpg"} alt="avatar" />
         </UserImage>
         { confirm ? <ConfirmPopUp /> : null }
       </UserContainer>
@@ -50,12 +66,6 @@ const Header = () => {
 
 export default Header; 
 
-const linkStyle = {
-  margin: "1rem",
-  textDecoration: "none",
-  color: 'white',
-  fontWeight: '600',
-};
 
 const Delete = styled.button`
     background: #ff6961;
@@ -67,6 +77,16 @@ const Delete = styled.button`
     align-items: center;
     justify-content: center;
   `;
+
+  const FirstLetter = styled.button`
+    background: #ff6961;
+    height: 38px;
+    width: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
+
 
 const Container = styled.div`
   background: #333333;
@@ -146,7 +166,7 @@ const ConfirmColumn = styled.div`
   justify-content: center;
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
   align-items: center;
-  margin-left: -2px;
+  margin-left: 120px;
   margin-top: 142px;
   position: absolute;
   margin-bottom: 20px;

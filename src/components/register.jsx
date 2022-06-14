@@ -24,7 +24,7 @@ const Signup = () => {
   const handleFormSubmit = (data) => {
     dispatch(
       signup(data, () => {
-        history.push("/");
+        history.push("/members");
       })
     );
   };
@@ -37,24 +37,26 @@ const Signup = () => {
         <SubHeader>Teams that stick together.</SubHeader> 
         <h3>Create An Account</h3>
         <br />
-        <input 
-          type="email" 
-          name="email" 
-          placeholder='Email'      
-          ref={register({ required: true })}
-        />
-        {errors.email?.message}
-        
-        <input 
-          type="password" 
-          name="password" 
-          placeholder='Password'      
-          ref={register({ required: true })}
-        />
-        {errors.password?.message}
-        <SignInButton type="submit" onClick={handleSubmit(handleFormSubmit)}>
-            Submit
-        </SignInButton>
+        <LForm onSubmit={handleSubmit(handleFormSubmit)}>
+          <input 
+            type="email" 
+            name="email" 
+            placeholder='Email'      
+            ref={register({ required: true })}
+          />
+          {errors.email?.message}
+          
+          <input 
+            type="password" 
+            name="password" 
+            placeholder='Password'      
+            ref={register({ required: true })}
+          />
+          {errors.password?.message}
+          <SignInButton>
+              Submit
+          </SignInButton>
+          </LForm>
         <span>
           Already have an account? <Link to="/login">Login</Link>
         </span>
@@ -72,6 +74,12 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const LForm = styled.form`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 `;
 
 const FormHeader = styled.h1`
