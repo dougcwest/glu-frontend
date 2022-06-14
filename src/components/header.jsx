@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 const Header = () => {
   const dispatch = useDispatch();
   const [confirm, setConfirm] = useState(false);
+  const history = useHistory();
 
   const authenticated = useSelector((state) => state.auth.authenticated);
   const email = useSelector((state) => state.auth.email);
@@ -29,7 +30,8 @@ const Header = () => {
 
     localStorage.removeItem('token');
 
-    window.location.reload(false);
+    history.push('/')
+    // window.location.reload(false);
   };
 
   const ConfirmPopUp = () => (
