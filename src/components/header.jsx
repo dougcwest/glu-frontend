@@ -1,13 +1,11 @@
 import styled from 'styled-components';
 import { useState, useEffect } from "react";
 import { fetchUser } from '../actions';
-import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 const Header = (props) => {
   const dispatch = useDispatch();
   const [confirm, setConfirm] = useState(false);
-  const history = useHistory();
 
   const authenticated = useSelector((state) => state.auth.authenticated);
   const email = useSelector((state) => state.auth.email);
@@ -30,8 +28,7 @@ const Header = (props) => {
 
     localStorage.removeItem('token');
 
-    props.history.push('/')
-    // window.location.reload(false);
+    window.location.reload();
   };
 
   const ConfirmPopUp = () => (
