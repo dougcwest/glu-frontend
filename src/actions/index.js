@@ -21,7 +21,6 @@ export const signup = (formProps, callback) => dispatch => {
     formProps
   ).then(function (response) {
     dispatch({ type: AUTH_USER, payload: response.data });
-    // console.log(response.data.token);
     localStorage.setItem("token", JSON.stringify(response.data.token));
     callback();
   })
@@ -50,8 +49,6 @@ export const fetchUser = () => (dispatch) => {
       Authorization: "Bearer " + localStorage.getItem('token').replace(/['"]+/g, '')
     },
   };
-
-  console.log(config.headers.Authorization);
 
   axios
     .get(`${ROOT_URL}/auth/current_user`, config)

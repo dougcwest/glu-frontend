@@ -4,7 +4,7 @@ import { fetchUser } from '../actions';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-const Header = () => {
+const Header = (props) => {
   const dispatch = useDispatch();
   const [confirm, setConfirm] = useState(false);
   const history = useHistory();
@@ -30,7 +30,7 @@ const Header = () => {
 
     localStorage.removeItem('token');
 
-    history.push('/')
+    props.history.push('/')
     // window.location.reload(false);
   };
 
